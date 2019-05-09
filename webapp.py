@@ -63,7 +63,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return render_template('message.html', message='You were logged out')
+    return render_template('game.html', message='You were logged out')
 
 @app.route('/login/authorized')
 def authorized():
@@ -80,7 +80,7 @@ def authorized():
             session.clear()
             print(inst)
             message='Unable to login, please try again.  '
-    return render_template('page1.html', message=message)
+    return render_template('game.html', message=message)
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter
