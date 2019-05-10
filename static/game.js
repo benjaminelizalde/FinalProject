@@ -5,9 +5,11 @@ var count = 0;
       count = count + 1;
       $("#count").text(count);
     });
+	$("#save").click(function(){
+	alert("hi");
+  $.post("save",count);
+  
+})
 });
 
-$("#save").click(function(){
-  $.post("/save",count);
-  alert("hi");
-})
+
