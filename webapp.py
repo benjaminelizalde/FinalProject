@@ -7,8 +7,8 @@ from bson.objectid import ObjectId
 import pprint
 import os
 import json
-import pymongo
-import dns
+#import pymongo
+#import dns
 import sys
 
 app = Flask(__name__)
