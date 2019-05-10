@@ -1,3 +1,7 @@
 SET GITHUB_CLIENT_ID=195e386bfafa26c75286
 SET GITHUB_CLIENT_SECRET=a2fbf25b274fea26e0cbf2667ab0a104df45cf0f
 SET SECRET_KEY= gjgjhgjg
+SET MONGO_USERNAME=mehu
+SET MONGO_PASSWORD=4UnbOelhxC40Ppi5
+SET MONGO_HOST=mongodb+srv://mehu:4UnbOelhxC40Ppi5@testdb-nt5ts.mongodb.net/test?retryWrites=true
+SET MONGO_DBNAME=CookieDB

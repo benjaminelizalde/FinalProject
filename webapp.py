@@ -7,11 +7,22 @@ from bson.objectid import ObjectId
 import pprint
 import os
 import json
-#import pymongo
-#import dns
+import pymongo
+import dns
 import sys
 
 app = Flask(__name__)
+
+
+url = 'mongodb+srv://{}:{}@{}/{}'.format(
+    os.environ["MONGO_USERNAME"],
+    os.environ["MONGO_PASSWORD"],
+    os.environ["MONGO_HOST"],
+    os.environ["MONGO_DBNAME"]
+)
+client = pymongo.MongoClient(os.environ["MONGO_HOST"])
+db = client[os.environ["MONGO_DBNAME"]]
+collection = db['cookieStats']
 
 app.debug = True #Change this to False for production
 app.secret_key = os.environ['SECRET_KEY'] #used to sign session cookies
@@ -48,11 +59,19 @@ def render_main():
 
 @app.route("/game")
 def render_game():
-        return render_template('game.html')
+    print(collection.count_documents({}))
+    return render_template('game.html')
 
 @app.route("/stats")
 def render_stats():
+
     return render_template('stats.html')
+
+@app.route("/save")
+def render_save():
+    post = collection.post({"totalc":1})
+    pprint.pprint(collection.count_documents({}))
+    return redirect("/game")
 
 
 

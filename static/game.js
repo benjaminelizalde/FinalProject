@@ -6,3 +6,8 @@ var count = 0;
       $("#count").text(count);
     });
 });
+
+$("#save").click(function(){
+  $.post("/save",count);
+  alert("hi");
+})
