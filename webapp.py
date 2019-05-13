@@ -28,14 +28,7 @@ app.debug = True #Change this to False for production
 app.secret_key = os.environ['SECRET_KEY'] #used to sign session cookies
 oauth = OAuth(app)
 
-#url = 'mongodb+srv://{}:{}@{}/{}'.format(
-#    os.environ["MONGO_PASSWORD"],
-#    os.environ["MONGO_HOST"],
-#    os.environ["MONGO_DBNAME"]
-#)
-#client = pymongo.MongoClient(os.environ["MONGO_HOST"])
-#db = client[os.environ["MONGO_DBNAME"]]
-   #Set up GitHub as OAuth provider
+
 
 github = oauth.remote_app(
     'github',
@@ -98,8 +91,8 @@ def authorized():
         except Exception as inst:
             session.clear()
             print(inst)
-            message='Unable to login, please try again.  '
-    return render_template('game.html', message=message)
+            message='Unable to login, please try again.'
+    return render_template('game.html')
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter
