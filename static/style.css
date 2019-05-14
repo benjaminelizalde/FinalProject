@@ -1,36 +1,28 @@
 
 
-#cookie
+#c1
 {
-  margin-top: 100px;
- margin-bottom: 100px;
- margin-right: 0px;
- margin-left: 80px;
+  background-color: #9EFF70;
+  border: #cdcdcd medium solid;
+  border-radius: 10px;
+
 }
 
-.section1
+#c2
 {
-background-color: #b9c2f7;
-margin-right: 0px;
-width: 40%;
-height: 100%;
+  background-color: #70FF89;
+  border: #cdcdcd medium solid;
+  border-radius: 10px;
 }
 
-.section2
+#c3
 {
-background-color: #276cdb;
-margin-left: 40%;
-width: 25%;
-height: 100%;
+  background-color: #70FFD1;
+  border: #cdcdcd medium solid;
+  border-radius: 10px;
 }
 
-.section3
-{
-background-color: #17088c;
-margin-left: 65%;
-width: 35%;
-height: 100%;
-}
+
 
 #cookieVariable
 {
