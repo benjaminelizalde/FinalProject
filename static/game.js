@@ -1,23 +1,51 @@
 var cookies = 0;
 var cookiesPerSecond = 0;
 var cookiesPerClick = 1;
+var cursorsOwned = 0;
+var costOfCursors = 10;
+var costOfCursorsMultiplier = 1;
+var cursorWeight = 1;
 
+var start = new Date;
 
-  $(document).ready(function() {
-    cookies = cookies + cookiesPerSecond;
-    $("#cookies").text(cookies);
-    $("#cookiesPerSecond").text(cookiesPerSecond);
-    $("#cookiesPerClick").text(cookiesPerClick);
+//====================================================================================================
+
+$(document).ready(function() {
+
+//====================================================================================================
+
+    function displayText()
+    {
+      $("#cookies").text(cookies);
+      $("#cookiesPerSecond").text(cookiesPerSecond);
+      $("#cookiesPerClick").text(cookiesPerClick);
+
+    }
+
+//===================================================================================================
 
 
 
 //====================================================================================================
-    $("#cookie").click(function()
+
+displayText();
+
+//====================================================================================================
+
+setInterval(function()
+ {
+
+    displayText();
+    cookies = cookies + cookiesPerSecond;
+
+  }, 1000);
+
+//====================================================================================================
+
+$("#cookie").click(function()
     {
 
-      $("#cookies").text(cookies);
-      $("#cookiesPerSecond").text(cookiesPerSecond);
-      $("#cookiesPerClick").text(cookiesPerClick);
+      displayText();
       cookies = cookies + cookiesPerClick;
 
 
@@ -25,24 +53,37 @@ var cookiesPerClick = 1;
 
 //====================================================================================================
 
-	 $("#save").click(function()
+$("#save").click(function()
    {
 
-        cookiesPerClick = cookiesPerClick + 1;
-        $("#cookies").text(cookies);
-        $("#cookiesPerSecond").text(cookiesPerSecond);
-        $("#cookiesPerClick").text(cookiesPerClick);
+      displayText();
+      cookiesPerClick = cookiesPerClick + 1;
 
-  });
+   });
 //====================================================================================================
 
-  $("#cursor").click(function(){
-    $("#cookies").text(cookies);
-    $("#cookiesPerSecond").text(cookiesPerSecond);
-    $("#cookiesPerClick").text(cookiesPerClick);
-      cookiesPerSecond = cookiesPerSecond + 1;
+$("#cursor").click(function()
+  {
+    if(cookies >= costOfCursors)
+    {
+      displayText();
+      cookiesPerSecond = cookiesPerSecond + cursorWeight;
+      cookies = cookies - costOfCursors;
+      cursorsOwned = cursorsOwned + 1;
+      costOfCursors = costOfCursors * costOfCursorsMultiplier;
+      costOfCursorsMultiplier = costOfCursorsMultiplier + cursorsOwned / 10;
+      
+    }
+    else
+    {
+      alert("Insufficiant Cookies. You need " + (costOfCursors - cookies) + " more cookies to make that purchase");
+    }
+
+
 
   });
 
 
 });
+
+//====================================================================================================
