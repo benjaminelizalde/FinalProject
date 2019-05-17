@@ -5,6 +5,10 @@ var cursorsOwned = 0;
 var costOfCursors = 10;
 var costOfCursorsMultiplier = 1;
 var cursorWeight = 1;
+var grandmasOwned = 0;
+var costOfGrandmas = 20;
+var costOfGrandmasMultiplier = 1;
+var grandmaWeight = 2;
 
 var start = new Date;
 
@@ -19,14 +23,13 @@ $(document).ready(function() {
       $("#cookies").text(cookies);
       $("#cookiesPerSecond").text(cookiesPerSecond);
       $("#cookiesPerClick").text(cookiesPerClick);
-
+      $("#cursorsOwned").text(cursorsOwned);
+      $("#costOfCursors").text(costOfCursors);
+      $("#grandmasOwned").text(grandmasOwned);
+      $("#costOfGrandmas").text(costOfGrandmas);
     }
 
 //===================================================================================================
-
-
-
-//====================================================================================================
 
 displayText();
 
@@ -56,10 +59,10 @@ $("#cookie").click(function()
 $("#save").click(function()
    {
 
-      displayText();
-      cookiesPerClick = cookiesPerClick + 1;
+
 
    });
+
 //====================================================================================================
 
 $("#cursor").click(function()
@@ -67,12 +70,12 @@ $("#cursor").click(function()
     if(cookies >= costOfCursors)
     {
       displayText();
-      cookiesPerSecond = cookiesPerSecond + cursorWeight;
+      cookiesPerClick = cookiesPerClick + cursorWeight;
       cookies = cookies - costOfCursors;
       cursorsOwned = cursorsOwned + 1;
       costOfCursors = costOfCursors * costOfCursorsMultiplier;
       costOfCursorsMultiplier = costOfCursorsMultiplier + cursorsOwned / 10;
-      
+
     }
     else
     {
@@ -82,6 +85,28 @@ $("#cursor").click(function()
 
 
   });
+
+
+//====================================================================================================
+
+$("#grandma").click(function()
+{
+  if(cookies >= costOfGrandmas)
+  {
+    displayText();
+    cookiesPerSecond = cookiesPerSecond + grandmaWeight;
+    cookies = cookies - costOfGrandmas;
+    grandmasOwned = grandmasOwned + 1;
+    costOfGrandmas = costOfGrandmas + costOfGrandmasMultiplier;
+    costOfGrandmasMultiplier = costOfGrandmasMultiplier + 1;
+
+  }
+  else
+  {
+  alert("Insufficiant Cookies. You need " + (costOfGrandmas - cookies) + " more cookies to make that purchase");
+  }
+
+});
 
 
 });
