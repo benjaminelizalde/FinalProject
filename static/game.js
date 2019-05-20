@@ -58,7 +58,9 @@ $("#cookie").click(function()
 
 $("#save").click(function()
    {
-
+     $.post( "/save",
+       { "cookies": cookies, "cookiesPerClick": cookiesPerClick, "cookiesPerSecond": cookiesPerSecond}
+     );
 
 
    });

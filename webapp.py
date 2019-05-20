@@ -60,10 +60,15 @@ def render_stats():
 
     return render_template('stats.html')
 
-@app.route("/save")
+@app.route("/save", methods=["POST"])
 def render_save():
-    post = collection.post({"totalc":1})
-    pprint.pprint(collection.count_documents({}))
+
+    pprint.pprint(session)
+    post = {"Github Name": session['user_data']['login'] ,  "cookies": request.form['cookies'] , "cookiesPerClick": request.form['cookiesPerClick'], "cookiesPerSecond": request.form['cookiesPerSecond']
+
+    }
+    collection.insert_one(post)
+
     return redirect("/game")
 
 
