@@ -64,10 +64,14 @@ def render_stats():
 def render_save():
 
     pprint.pprint(session)
-    post = {"Github Name": session['user_data']['login'] ,  "cookies": request.form['cookies'] , "cookiesPerClick": request.form['cookiesPerClick'], "cookiesPerSecond": request.form['cookiesPerSecond']
+    post = {"Github Name": session['user_data']['login'] ,  "cookies": request.form['cookies'] , "cookiesPerClick": request.form['cookiesPerClick'], "cookiesPerSecond": request.form['cookiesPerSecond']}
 
-    }
-    collection.insert_one(post)
+    if post.find_one({"Github Name": session['user_data']['login']}) is not None:
+        collection.update_one({"Github Name": session['user_data']['login']}, {'$set':{'cookies' : request.form['cookies']} ,'$set':{'cookiesPerClick' : request.form['cookiesPerClick']} ,  '$set':{'cookiesPerSecond' : request.form['cookiesPerSecond']}   })
+    else:
+        pprint.pprint("HERE")
+        collection.insert_one(post)
+
 
     return redirect("/game")
 
