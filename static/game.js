@@ -9,6 +9,8 @@ var grandmasOwned = 0;
 var costOfGrandmas = 20;
 var costOfGrandmasMultiplier = 1;
 var grandmaWeight = 2;
+var lifetimeCookies = 0;
+var lifetimeClicks = 0;
 
 var start = new Date;
 
@@ -50,9 +52,16 @@ $("#cookie").click(function()
 
       displayText();
       cookies = cookies + cookiesPerClick;
+      lifetimeClicks = lifetimeClicks + 1;
+
+      //if(lifetimeClicks < 2)
+  //    {
+  //      alert("In order for you to save you data you must login to your Github and click the save")
+  //    }
 
 
-    });
+
+});
 
 //====================================================================================================
 
@@ -60,8 +69,9 @@ $("#save").click(function()
    {
      $.post( "/save",
        { "cookies": cookies, "cookiesPerClick": cookiesPerClick, "cookiesPerSecond": cookiesPerSecond}
-     );
 
+     );
+     alert("Your data has been updated and saved in the database")
 
    });
 

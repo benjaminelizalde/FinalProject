@@ -66,20 +66,23 @@ def render_save():
     pprint.pprint(session)
     post = {"Github Name": session['user_data']['login'] ,  "cookies": request.form['cookies'] , "cookiesPerClick": request.form['cookiesPerClick'], "cookiesPerSecond": request.form['cookiesPerSecond']}
 
-    if post.find_one({"Github Name": session['user_data']['login']}) is not None:
-        collection.update_one({"Github Name": session['user_data']['login']}, {'$set':{'cookies' : request.form['cookies']} ,'$set':{'cookiesPerClick' : request.form['cookiesPerClick']} ,  '$set':{'cookiesPerSecond' : request.form['cookiesPerSecond']}   })
+    if collection.find_one({"Github Name": session['user_data']['login']}) is not None:
+
+        collection.update_one({"Github Name": session['user_data']['login']}, {'$set':{'cookies' : request.form['cookies']}})
     else:
-        pprint.pprint("HERE")
+
         collection.insert_one(post)
 
-
+#,'$set':{'cookiesPerClick' : request.form['cookiesPerClick']} ,  '$set':{'cookiesPerSecond' : request.form['cookiesPerSecond']}
     return redirect("/game")
 
 
 
 @app.route('/login')
 def login():
+
     return github.authorize(callback=url_for('authorized', _external=True, _scheme='http')) #callback URL must match the pre-configured callback URL
+
 
 @app.route('/logout')
 def logout():
@@ -97,11 +100,17 @@ def authorized():
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data
             message='You were successfully logged in as ' + session['user_data']['login']
+            if collection.find_one({"Github Name": session['user_data']['login']}) is not None:
+                docs=collection.find_one({"Github Name": session['user_data']['login']})
+            return render_template('game.html',cookies=docs["cookies"], cookiesPerClick=docs["cookiesPerClick"], cookiesPerSecond=docs["cookiesPerSecond"])
+
         except Exception as inst:
             session.clear()
             print(inst)
             message='Unable to login, please try again.'
-    return render_template('game.html')
+
+
+    return render_template('game.html',cookies=0, cookiesPerClick=1, cookiesPerSecond=0)
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter

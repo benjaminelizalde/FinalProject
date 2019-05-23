@@ -6,6 +6,16 @@
 
 /*==============================================================================*/
 
+
+#cookie
+{
+
+  margin-top:100px;
+
+}
+
+
+/*==============================================================================*/
 .text
 {
   margin-top: 50px;
@@ -17,27 +27,33 @@
 
 #c1
 {
-  background-color: #9EFF70;
-  border: #cdcdcd medium solid;
+  font-size: 30px;
+  background-color: #6CB1ED;
+  border: #512727 medium solid;
   border-radius: 10px;
+
 }
 
 /*==============================================================================*/
 
 #c2
 {
-  background-color: #70FF89;
-  border: #cdcdcd medium solid;
+  font-size: 20px;
+  background-color: #B7BFC6;
+  border: #512727 medium solid;
   border-radius: 10px;
+
 }
 
 /*==============================================================================*/
 
 #c3
 {
-  background-color: #70FFD1;
-  border: #cdcdcd medium solid;
+  font-size: 20px;
+  background-color: #A2D0F8;
+  border: #512727 medium solid;
   border-radius: 10px;
+
 }
 
 /*==============================================================================*/
