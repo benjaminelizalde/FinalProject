@@ -46,14 +46,18 @@ github = oauth.remote_app(
 def inject_logged_in():
     return {"logged_in":('github_token' in session)}
 
+
+
 @app.route("/")
 def render_main():
-    return render_template('game.html')
 
-@app.route("/game")
-def render_game():
-    print(collection.count_documents({}))
-    return render_template('game.html')
+    if 'user_data' in session:
+        if collection.find_one({"Github Name": session['user_data']['login']}) is not None:
+            docs=collection.find_one({"Github Name": session['user_data']['login']})
+            pprint.pprint(docs)
+            return render_template('game.html', cookies=docs["cookies"], cookiesPerClick=docs["cookiesPerClick"], cookiesPerSecond=docs["cookiesPerSecond"], cursorsOwned=docs["cursorsOwned"], grandmasOwned=docs["grandmasOwned"], costOfCursors=docs["costOfCursors"], costOfGrandmas=docs["costOfGrandmas"])
+            print(collection.count_documents({}))
+    return render_template('game.html', cookies=0, cookiesPerClick=1, cookiesPerSecond=0,  cursorsOwned = 0, costOfCursors = 10, grandmasOwned = 0, costOfGrandmas = 20)
 
 @app.route("/stats")
 def render_stats():
@@ -63,17 +67,16 @@ def render_stats():
 @app.route("/save", methods=["POST"])
 def render_save():
 
-    pprint.pprint(session)
-    post = {"Github Name": session['user_data']['login'] ,  "cookies": request.form['cookies'] , "cookiesPerClick": request.form['cookiesPerClick'], "cookiesPerSecond": request.form['cookiesPerSecond']}
-
+    pprint.pprint(request.form)
+    post = {"Github Name": session['user_data']['login'] ,  "cookies": request.form['cookies'] , "cookiesPerClick": request.form['cookiesPerClick'], "cookiesPerSecond": request.form['cookiesPerSecond'], "cursorsOwned": request.form['cursorsOwned'], "grandmasOwned": request.form['grandmasOwned'], "costOfGrandmas": request.form['costOfGrandmas'], "costOfCursors": request.form['costOfCursors']}
+    pprint.pprint(post)
     if collection.find_one({"Github Name": session['user_data']['login']}) is not None:
-
-        collection.update_one({"Github Name": session['user_data']['login']}, {'$set':{'cookies' : request.form['cookies']}})
+        print("here")
+        print(request.form)
+        collection.update_one({"Github Name": session['user_data']['login']}, {'$set':{'cookies' : request.form['cookies'], 'cookiesPerClick' : request.form['cookiesPerClick'] ,'cookiesPerSecond' : request.form['cookiesPerSecond'], "cursorsOwned": request.form['cursorsOwned'], "grandmasOwned": request.form['grandmasOwned'], "costOfGrandmas": request.form['costOfGrandmas'], "costOfCursors": request.form['costOfCursors']}})
     else:
-
         collection.insert_one(post)
 
-#,'$set':{'cookiesPerClick' : request.form['cookiesPerClick']} ,  '$set':{'cookiesPerSecond' : request.form['cookiesPerSecond']}
     return redirect("/game")
 
 
@@ -87,7 +90,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return render_template('game.html', message='You were logged out')
+    return render_template('game.html', message='You were logged out',cookies=0, cookiesPerClick=1, cookiesPerSecond=0,  cursorsOwned = 0, costOfCursors = 10, grandmasOwned = 0, costOfGrandmas = 20)
 
 @app.route('/login/authorized')
 def authorized():
@@ -102,7 +105,8 @@ def authorized():
             message='You were successfully logged in as ' + session['user_data']['login']
             if collection.find_one({"Github Name": session['user_data']['login']}) is not None:
                 docs=collection.find_one({"Github Name": session['user_data']['login']})
-            return render_template('game.html',cookies=docs["cookies"], cookiesPerClick=docs["cookiesPerClick"], cookiesPerSecond=docs["cookiesPerSecond"])
+                pprint.pprint(docs)
+                return render_template('game.html', cookies=docs["cookies"], cookiesPerClick=docs["cookiesPerClick"], cookiesPerSecond=docs["cookiesPerSecond"], cursorsOwned=docs["cursorsOwned"], grandmasOwned=docs["grandmasOwned"], costOfCursors=docs["costOfCursors"], costOfGrandmas=docs["costOfGrandmas"])
 
         except Exception as inst:
             session.clear()
@@ -110,7 +114,7 @@ def authorized():
             message='Unable to login, please try again.'
 
 
-    return render_template('game.html',cookies=0, cookiesPerClick=1, cookiesPerSecond=0)
+    return render_template('game.html',cookies=0, cookiesPerClick=1, cookiesPerSecond=0,  cursorsOwned = 0, costOfCursors = 10, grandmasOwned = 0, costOfGrandmas = 20)
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter

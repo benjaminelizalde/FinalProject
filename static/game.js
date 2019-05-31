@@ -1,12 +1,5 @@
-var cookies = 0;
-var cookiesPerSecond = 0;
-var cookiesPerClick = 1;
-var cursorsOwned = 0;
-var costOfCursors = 10;
 var costOfCursorsMultiplier = 1;
 var cursorWeight = 1;
-var grandmasOwned = 0;
-var costOfGrandmas = 20;
 var costOfGrandmasMultiplier = 1;
 var grandmaWeight = 2;
 var lifetimeCookies = 0;
@@ -33,6 +26,9 @@ $(document).ready(function() {
 
 //===================================================================================================
 
+
+
+//==================================================================================================
 displayText();
 
 //====================================================================================================
@@ -68,8 +64,7 @@ $("#cookie").click(function()
 $("#save").click(function()
    {
      $.post( "/save",
-       { "cookies": cookies, "cookiesPerClick": cookiesPerClick, "cookiesPerSecond": cookiesPerSecond}
-
+       { "cookies": cookies ,"cookiesPerClick": cookiesPerClick,"cookiesPerSecond": cookiesPerSecond, "cursorsOwned": cursorsOwned, "costOfCursors": costOfCursors, "grandmasOwned": grandmasOwned, "costOfGrandmas": costOfGrandmas}
      );
      alert("Your data has been updated and saved in the database")
 
@@ -98,6 +93,14 @@ $("#cursor").click(function()
 
   });
 
+//====================================================================================================
+
+$("#stats").click(function()
+{
+
+confirm("Save cookies before going to stats page. If you have already saved your cookies click ok to go to stats page. If not click cancel and save your cookies")
+
+});
 
 //====================================================================================================
 
