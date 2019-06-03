@@ -2,8 +2,7 @@ var costOfCursorsMultiplier = 1;
 var cursorWeight = 1;
 var costOfGrandmasMultiplier = 1;
 var grandmaWeight = 2;
-var lifetimeCookies = 0;
-var lifetimeClicks = 0;
+
 
 var start = new Date;
 
@@ -38,6 +37,7 @@ setInterval(function()
 
     displayText();
     cookies = cookies + cookiesPerSecond;
+    lifetimeCookies = lifetimeCookies + cookiesPerSecond;
 
   }, 1000);
 
@@ -49,6 +49,7 @@ $("#cookie").click(function()
       displayText();
       cookies = cookies + cookiesPerClick;
       lifetimeClicks = lifetimeClicks + 1;
+
 
       //if(lifetimeClicks < 2)
   //    {
@@ -64,7 +65,7 @@ $("#cookie").click(function()
 $("#save").click(function()
    {
      $.post( "/save",
-       { "cookies": cookies ,"cookiesPerClick": cookiesPerClick,"cookiesPerSecond": cookiesPerSecond, "cursorsOwned": cursorsOwned, "costOfCursors": costOfCursors, "grandmasOwned": grandmasOwned, "costOfGrandmas": costOfGrandmas}
+       { "cookies": cookies ,"cookiesPerClick": cookiesPerClick,"cookiesPerSecond": cookiesPerSecond, "cursorsOwned": cursorsOwned, "costOfCursors": costOfCursors, "grandmasOwned": grandmasOwned, "costOfGrandmas": costOfGrandmas, "lifetimeClicks": lifetimeClicks, "lifetimeCookies":lifetimeCookies}
      );
      alert("Your data has been updated and saved in the database")
 
@@ -93,14 +94,6 @@ $("#cursor").click(function()
 
   });
 
-//====================================================================================================
-
-$("#stats").click(function()
-{
-
-confirm("Save cookies before going to stats page. If you have already saved your cookies click ok to go to stats page. If not click cancel and save your cookies")
-
-});
 
 //====================================================================================================
 

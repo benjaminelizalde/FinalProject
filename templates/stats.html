@@ -4,6 +4,19 @@
 
 {% block content %}
 
+<script>
+  var cookies = {{cookies}};
+  var cookiesPerSecond = {{cookiesPerSecond}};
+  var cookiesPerClick = {{cookiesPerClick}};
+  var cursorsOwned = {{cursorsOwned}};
+  var costOfCursors = {{costOfCursors}};
+  var grandmasOwned = {{grandmasOwned}};
+  var costOfGrandmas = {{costOfGrandmas}};
+  var lifetimeClicks = {{lifetimeClicks}};
+  var lifetimeCookies = {{lifetimeCookies}};
+</script>
 
+<p>{{lifetimeClicks}}<p>
+<p>{{lifetimeCookies}}</p>
 
 {% endblock %}
