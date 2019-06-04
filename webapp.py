@@ -93,7 +93,7 @@ def render_save():
 @app.route('/login')
 def login():
 
-    return github.authorize(callback=url_for('authorized', _external=True, _scheme='http')) #callback URL must match the pre-configured callback URL
+    return github.authorize(callback=url_for('authorized', _external=True, _scheme='https')) #callback URL must match the pre-configured callback URL
 
 
 @app.route('/logout')
