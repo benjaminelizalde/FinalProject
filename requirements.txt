@@ -6,4 +6,4 @@ wheel
 gunicorn
 Flask-OAuthlib
 Flask-PyMongo
-dns
+dnspython
