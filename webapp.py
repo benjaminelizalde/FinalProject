@@ -103,6 +103,7 @@ def logout():
 
 @app.route('/login/authorized')
 def authorized():
+    print("here")
     resp = github.authorized_response()
     if resp is None:
         session.clear()
