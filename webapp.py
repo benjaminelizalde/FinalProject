@@ -103,11 +103,12 @@ def logout():
 
 @app.route('/login/authorized')
 def authorized():
-    print("here")
     resp = github.authorized_response()
+    print("here")
     if resp is None:
         session.clear()
         message = 'Access denied: reason=' + request.args['error'] + ' error=' + request.args['error_description'] + ' full=' + pprint.pformat(request.args)
+        print("here1")
     else:
         try:
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
