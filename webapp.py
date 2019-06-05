@@ -119,6 +119,7 @@ def authorized():
             print("here3.5")
             message='You were successfully logged in as ' + session['user_data']['login']
             print("here3.75")
+            print(session['user_data']['login'])
             if collection.find_one({"Github Name": session['user_data']['login']}) is not None:
                 print("here4")
                 docs=collection.find_one({"Github Name": session['user_data']['login']})
