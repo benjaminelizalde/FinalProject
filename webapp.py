@@ -114,14 +114,19 @@ def authorized():
         try:
             print("here3")
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
+            print("here3.25")
             session['user_data']=github.get('user').data
+            print("here3.5")
             message='You were successfully logged in as ' + session['user_data']['login']
             if collection.find_one({"Github Name": session['user_data']['login']}) is not None:
+                print("here4")
                 docs=collection.find_one({"Github Name": session['user_data']['login']})
                 pprint.pprint(docs)
+                print("here4.5")
                 return render_template('game.html', cookies=docs["cookies"], cookiesPerClick=docs["cookiesPerClick"], cookiesPerSecond=docs["cookiesPerSecond"], cursorsOwned=docs["cursorsOwned"], grandmasOwned=docs["grandmasOwned"], costOfCursors=docs["costOfCursors"], costOfGrandmas=docs["costOfGrandmas"],lifetimeClicks = docs["lifetimeClicks"],lifetimeCookies = docs["lifetimeCookies"])
 
         except Exception as inst:
+            print("here5")
             session.clear()
             print(inst)
             message='Unable to login, please try again.'
